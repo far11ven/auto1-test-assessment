@@ -16,7 +16,7 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing
 
 ## How To Run :
 
- **Method#1** - Running Via IDE
+**Method#1** - Running Via IDE
  
  **Pre-requisite:**
  ```runner.config``` file should have following properties:
@@ -27,7 +27,7 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing
  - Right click on ```"CucumberTestRunnerReporter.java"``` > ```Run As``` > ```TestNG Test```
  
  
- **Method#2** - Running Via Command Line
+**Method#2** - Running Via Command Line
  - Open ```"Command Prompt"```
  - Goto ```Project directory```
  - type following command : 
