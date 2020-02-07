@@ -1,0 +1,62 @@
+[
+  {
+    "conditions": [
+      {
+        "occurrence": 4,
+        "nextDependency": "FOLLOWS",
+        "logSources": [
+          "firewall"
+        ],
+        "subConditions": [
+          {
+            "fieldId": "evtType",
+            "operatorValue": [
+              {
+                "operator": "is",
+                "value": "FAILURE"
+              }
+            ],
+            "nextSubDependency": null
+          }
+        ]
+      },
+      {
+        "occurrence": 1,
+        "nextDependency": null,
+        "logSources": [
+          "firewall"
+        ],
+        "subConditions": [
+          {
+            "fieldId": "evtType",
+            "operatorValue": [
+              {
+                "operator": "is",
+                "value": "SUCCESS"
+              }
+            ],
+            "nextSubDependency": null
+          }
+        ]
+      }
+    ],
+    "criticality": "MEDIUM",
+    "description": "rule creation",
+    "sameFields": [],
+    "differentFields": [],
+    "tactic": "tac",
+    "technique": "tech",
+    "name": "INSERT_RANDOM_NAME",
+    "signal_description": "demo signal",
+    "status": "INACTIVE",
+    "timeFrame": {
+      "timeUnit": "minutes",
+      "timeValue": 5
+    },
+    "adaptiveResponse": {
+      "email": [],
+      "syslog": [],
+      "custom": []
+    }
+  }
+]
