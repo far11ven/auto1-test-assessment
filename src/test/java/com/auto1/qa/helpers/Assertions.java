@@ -1,12 +1,13 @@
 package com.auto1.qa.helpers;
 
 import org.testng.Assert;
-
 import com.auto1.qa.global.utils.LogUtils;
 
-/*
- * This class provides instance of ConfigReader for reading values from "config.properties"
-*/
+/***
+ * This class provides a wrapper around TestNG assertions; with logging
+ *
+ * @author Kushal Bhalaik
+ */
 public class Assertions {
 
 	private LogUtils LOGGER;

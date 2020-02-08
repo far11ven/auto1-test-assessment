@@ -14,8 +14,9 @@ import com.auto1.qa.global.utils.ConfigReader;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-/*
+/***
  * This class provides Main TestRunner for all the features
+ *
  */
 @CucumberOptions(
         features = {"features"},
@@ -74,7 +75,6 @@ public class CucumberTestRunnerReporter extends AbstractTestNGCucumberTests {
 
         extent.flush();
         extent.createAssetsDirectory();
-        //extent.replaceEmbeddedLinks();
     }
 
 

@@ -1,7 +1,7 @@
 package com.auto1.qa.global.utils;
 
-/*
- * This class provides custom RuntimeException
+/**
+ * This class provides a custom RuntimeException
 */
 public class TestFailedException extends RuntimeException {
 

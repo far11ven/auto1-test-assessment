@@ -8,10 +8,10 @@ import com.auto1.qa.global.utils.ConfigReader;
 
 /**
  * Using PicoContainer to share state between stepdefs in a scenario
- */
-/**
- * @author Kushal Bhalaik
  *
+** Registering a class in TestContext makes sure there's only single instance of that in use
+ *
+ * @author Kushal Bhalaik
  */
 
 public class TestContext {

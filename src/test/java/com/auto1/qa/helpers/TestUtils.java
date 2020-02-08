@@ -1,17 +1,15 @@
-package com.auto1.qa.utils;
+package com.auto1.qa.helpers;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import com.auto1.qa.utils.RestUtils;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.auto1.qa.global.utils.ConfigReader;
 import com.auto1.qa.global.utils.FileOperations;
 import com.auto1.qa.global.utils.LogUtils;
-import com.auto1.qa.helpers.Assertions;
 
-import io.restassured.http.Cookie;
-import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
@@ -57,7 +55,7 @@ public class TestUtils {
 			LOGGER.fail("Response schema validation failed!!" + Joiner.on("\n").join(Iterables.limit(Arrays.asList(ex.getStackTrace()), 10)));  //stores only 10 lines from error stacktrace in log file
 		}
 	}
-	
+
 	//This method verifies if there are duplicates in a list List<T>
 	public static <T> Set<T> findDuplicates(Collection<T> collection) {
 

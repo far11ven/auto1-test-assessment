@@ -1,6 +1,5 @@
 package com.auto1.qa.global.utils;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileReader;
 
-/*
+/**
  * This class provides instance of FileOperations for reading/writing data from a text file
 */
 public class FileOperations {
@@ -56,12 +55,8 @@ public class FileOperations {
 			}
 			return sb.toString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	/*finally {
-			br.close();
-		}*/	
-
+		}
 		return null;
 	}
 

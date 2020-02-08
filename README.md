@@ -46,7 +46,7 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing
 ## Run Report: 
 Test Reports can be found at path ```\output\<env>\Test_Report.html``` (Automatically created after first run) 
 
-![alt text](https://raw.githubusercontent.com/far11ven/auto1-test-assessment/develop/src/test/resources/images/Screenshot_TestReport.png)
+![alt text](src/test/resources/images/Screenshot_TestReport.png)
 
 ## Logs: 
 

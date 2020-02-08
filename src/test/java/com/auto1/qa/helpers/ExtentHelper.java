@@ -15,10 +15,8 @@ import org.apache.commons.io.FileUtils;
 import com.auto1.qa.global.utils.ConfigReader;
 
 /**
- * This class provides Extent Helper methods
- */
-
-/**
+ * This class provides Extent Helper methods required to modify/embed extent reports
+ *
  * @author Kushal Bhalaik
  */
 public class ExtentHelper {

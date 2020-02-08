@@ -12,7 +12,7 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
-/***
+/**
  * This custom class provides scenario hooks i.e @before ans @after
  */
 public class Hooks {
@@ -43,17 +43,24 @@ public class Hooks {
 				System.getProperty("TEST_RUN_TIMESTAMP"));
 	}
 
+	/*
+	 * This method runs before anything else is run
+	 *
+	 */
 	@Before(order = 0)
 	public void beforeScenario(Scenario scenario) {
 		String scenarioID = RandomStringUtils.random(5, true, true);
-		LOGGER.start("Starting Test : " + scenario.getName() + " with id : " + scenarioID);
+		LOGGER.start("Starting Test : " + scenario.getName() + "\n Test id : " + scenarioID);
 
+		// save in scenario context
 		testContext.scenarioContext.setContext(ContextEnums.CURRENT_SCENARIO_ID, scenarioID);
-		testContext.scenarioContext.setContext(ContextEnums.CURRENT_SCENARIO_NAME, scenario.getName()); // save in
-		// scenario
-		// context
+		testContext.scenarioContext.setContext(ContextEnums.CURRENT_SCENARIO_NAME, scenario.getName());
 	}
 
+	/*
+	 * This method runs before an @ignore tag is encountered
+	 * throws PendingException();
+	 */
 	@Before("@ignore")
 	public void beforeIgnoreTest() throws Throwable {
 		LOGGER.warn("Test was marked as ignored" );

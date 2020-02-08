@@ -15,7 +15,7 @@ import com.google.gson.JsonArray;
 import static io.restassured.config.ParamConfig.UpdateStrategy.REPLACE;
 import static io.restassured.config.ParamConfig.paramConfig;
 
-/*
+/***
  * This is class contains all the restAssured related getter/setter methods
  * @author Kushal Bhalaik
  */
@@ -37,7 +37,7 @@ public class RestUtils {
         return apiUtilsInstance;
     }
 
-    // how different parameter types should be updated on "collision", in this case REPLACED with latest value
+    // How different parameter types should be updated on "collision", in this case REPLACED with latest value
     public void setRequestSpecificationParamConfig() {
         httpRequest.config(RestAssured.config().paramConfig(paramConfig().queryParamsUpdateStrategy(REPLACE)));
     }
@@ -55,12 +55,12 @@ public class RestUtils {
         apiUtilsInstance = null;
     }
 
-    // gets Base URI
+    // Gets Base URI
     public static String getBaseURI() {
         return RestAssured.baseURI;
     }
 
-    // gets base path
+    // Gets base path
     public static String getBasePath() {
         return RestAssured.basePath;
     }
@@ -114,7 +114,6 @@ public class RestUtils {
     public void setRequestBody(JsonArray body) {
         httpRequest.body(body);
     }
-
 
     // Sets query params
     public void setRequestQueryParams(Map<String, String> params) {

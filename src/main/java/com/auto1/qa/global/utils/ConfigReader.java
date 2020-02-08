@@ -13,7 +13,6 @@ public class ConfigReader {
 	private final String runnerConfigFilePath = System.getProperty("user.dir") + "/src/test/resources/runner.config";
 	private final String logFilePath = System.getProperty("user.dir") + "/src/test/resources/Logs";
 
-	private String envFilePath = null;
 	private static ConfigReader configReaderInstance = null;
 
 	private ConfigReader() {
@@ -135,6 +134,7 @@ public class ConfigReader {
 
 	private String getFilePath() {
 
+		String envFilePath = null;
 		if (null != System.getProperty("env")) {
 			envFilePath = System.getProperty("user.dir") + "/src/test/resources/environments/"
 					+ System.getProperty("env") + "/env.config";

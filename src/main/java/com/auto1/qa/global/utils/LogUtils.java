@@ -14,7 +14,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-/*
+/**
  * This is a Singleton class, which provides instance of LogUtils for Logging capabilities
  */
 public class LogUtils {
@@ -23,7 +23,6 @@ public class LogUtils {
 	private String logFilePath;
 	private String fileName;
 	private static LogUtils logUtilsInstance = null;
-	private ConfigReader configReader = ConfigReader.getInstance();
 
 	private LogUtils(Class<?> ClassName) {
 		Properties props = new Properties();
@@ -42,6 +41,7 @@ public class LogUtils {
 
 		logger = Logger.getLogger(ClassName);
 
+		ConfigReader configReader = ConfigReader.getInstance();
 
 		new File(System.getProperty("user.dir") + "/output/" + (null != System.getProperty("env") ? System.getProperty("env")
 				: configReader.getRunnerConfigProperty("ENV")) + "/logs/").mkdirs();
@@ -171,7 +171,7 @@ public class LogUtils {
 	}
 
 	/*
-	 * This method writes log to logs folder with timestamp
+	 * This method writes losg to output//logs folder with timestamp
 	 */
 	public void writeToLogFile(String content) {
 

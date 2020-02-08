@@ -3,7 +3,7 @@ Feature: Some test
 
   @positive
   Scenario: sometest
-    Given As as a user I want to execute 'car-types/manufacturer' endpoint
+    Given As a user I want to execute 'manufacturer' endpoint
     When I set headers as
       | contentType | application/json |
     When I set query params as

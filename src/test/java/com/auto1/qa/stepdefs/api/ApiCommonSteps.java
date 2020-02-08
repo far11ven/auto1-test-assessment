@@ -9,9 +9,8 @@ import com.auto1.qa.context.TestContext;
 import com.auto1.qa.enums.ContextEnums;
 import com.auto1.qa.global.utils.ConfigReader;
 import com.auto1.qa.global.utils.LogUtils;
-import com.auto1.qa.helpers.Assertions;
 import com.auto1.qa.utils.RestUtils;
-import com.auto1.qa.utils.TestUtils;
+import com.auto1.qa.helpers.TestUtils;
 import com.auto1.qa.global.utils.FileOperations;
 
 import cucumber.api.java.en.Given;
@@ -23,73 +22,65 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 /***
- * This is class contains all the API Testing tasks
+ * This is class contains all the common cucumber steps
  */
 public class ApiCommonSteps {
 
-    public Response res = null; // Response
-    public JsonPath jp = null; // JsonPath
+    private Response res = null; // Response
+    private JsonPath jp = null; // JsonPath
 
-    public RestUtils restUtils;
-    public LogUtils LOGGER;
-    public ConfigReader configReader;
-    public static Assertions assertions;
+    private RestUtils restUtils;
+    private LogUtils LOGGER;
+    private ConfigReader configReader;
 
-    TestContext testContext;
+    private TestContext testContext;
 
     public ApiCommonSteps(TestContext context) {
         testContext = context;
         LOGGER = testContext.getLogUtils();
         restUtils = RestUtils.getInstance();
         configReader = ConfigReader.getInstance();
-        assertions = Assertions.getInstance();
-
     }
 
 
-    @Given("^As as a user I want to execute '([^\"]+)' endpoint$")
+    @Given("^As a user I want to execute '([^\"]+)' endpoint$")
     public void user_wants_to_execute_api_endpoint(String endpoint) {
         restUtils.setBaseURI(configReader.getProperty("BASE_URL"));
-        LOGGER.info("Setting BASEURL as :" + configReader.getProperty("BASE_URL"));
-        // Setup Base Path
-        restUtils.setBasePath(configReader.getProperty("API_BASE_PATH"));
-        LOGGER.info("Setting BASEPATH as :" + configReader.getProperty("API_BASE_PATH"));
-        // used for ignoring ssl
+        LOGGER.info("Setting BASE_URL as :" + configReader.getProperty("BASE_URL"));
+        // Setup API Version & Base Path
+        restUtils.setBasePath(configReader.getProperty("API_VERSION") + configReader.getProperty("API_BASE_PATH"));
+        LOGGER.info("Setting API_VERSION as :" + configReader.getProperty("API_VERSION"));
+        LOGGER.info("Setting BASE_PATH as :" + configReader.getProperty("API_BASE_PATH"));
+
+        // Used for ignoring ssl checks
         restUtils.relaxedHTTPSValidation();
 
         // save API_ENDPOINT in context
         testContext.scenarioContext.setContext(ContextEnums.API_ENDPOINT, endpoint);
         LOGGER.info("Setting API_ENDPOINT as :" + endpoint);
 
-        LOGGER.info("endpoint" + endpoint);
-
-        LOGGER.info("Setting QualysSession cookies in header param.." + configReader.getProperty("QUALYS_SESSION_COOKIE"));
-        restUtils.setRequestHeader("cookie", "QualysSession=" + configReader.getProperty("QUALYS_SESSION_COOKIE"));
-
-
     }
 
     @When("^I set query params as$")
     public void user_sets_query_params(Map<String, String> queryParams) {
         LOGGER.info("Setting query params DATA as..");
-        Map<String, String> newParams = queryParams;
-        for (Map.Entry<String, String> entry : newParams.entrySet()) {
+        for (Map.Entry<String, String> entry : queryParams.entrySet()) {
 
             if (entry.getValue().contains(",")) {
                 String currentParam = entry.getValue();
                 currentParam = currentParam.replace(" ", "");
-                String keyValues[] = currentParam.split(",");
-                String queryString = "";
+                String[] keyValues = currentParam.split(",");
+                StringBuilder queryString = new StringBuilder();
                 for (int i = 0; i < keyValues.length; i++) {
 
                     if (i == 0) {
-                        queryString = keyValues[i];
+                        queryString = new StringBuilder(keyValues[i]);
                     } else {
-                        queryString = queryString + "&" + entry.getKey() + "=" + keyValues[i];
+                        queryString.append("&").append(entry.getKey()).append("=").append(keyValues[i]);
                     }
                 }
                 try {
-                    newParams.put(entry.getKey(), queryString);
+                    queryParams.put(entry.getKey(), queryString.toString());
                 } catch (UnsupportedOperationException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +89,7 @@ public class ApiCommonSteps {
             LOGGER.info(entry.getKey() + ":" + entry.getValue());
         }
 
-        restUtils.setRequestQueryParams(newParams);
+        restUtils.setRequestQueryParams(queryParams);
 
     }
 

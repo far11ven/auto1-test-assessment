@@ -1,5 +1,10 @@
 package com.auto1.qa.enums;
 
+/**
+ * This enum defines what key-values are stored in TestContext
+ *
+ * @author Kushal Bhalaik
+ */
 public enum ContextEnums {
 	TEST_RUN_TIMESTAMP,
 	CURRENT_SCENARIO_ID,
