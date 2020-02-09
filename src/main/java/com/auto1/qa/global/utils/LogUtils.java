@@ -29,11 +29,7 @@ public class LogUtils {
 		try {
 			props.load(
 					new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/" + "log4j.properties"));
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 
@@ -171,7 +167,7 @@ public class LogUtils {
 	}
 
 	/*
-	 * This method writes losg to output//logs folder with timestamp
+	 * This method writes losg to output/<env>/logs folder with timestamp
 	 */
 	public void writeToLogFile(String content) {
 

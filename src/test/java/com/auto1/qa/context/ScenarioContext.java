@@ -2,7 +2,7 @@ package com.auto1.qa.context;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.auto1.qa.enums.ContextEnums;
+import com.auto1.qa.context.enums.ContextEnums;
 
 import io.restassured.response.Response;
 

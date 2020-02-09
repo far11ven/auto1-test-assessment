@@ -4,7 +4,7 @@ import cucumber.api.PendingException;
 import org.apache.commons.lang3.RandomStringUtils;
 import com.auto1.qa.utils.RestUtils;
 import com.auto1.qa.context.TestContext;
-import com.auto1.qa.enums.ContextEnums;
+import com.auto1.qa.context.enums.ContextEnums;
 import com.auto1.qa.global.utils.ConfigReader;
 import com.auto1.qa.global.utils.LogUtils;
 

@@ -1,4 +1,4 @@
-package com.auto1.qa.enums;
+package com.auto1.qa.context.enums;
 
 /**
  * This enum defines what key-values are stored in TestContext

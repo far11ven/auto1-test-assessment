@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.auto1.qa.context.TestContext;
-import com.auto1.qa.enums.ContextEnums;
+import com.auto1.qa.context.enums.ContextEnums;
 import com.auto1.qa.global.utils.ConfigReader;
 import com.auto1.qa.global.utils.LogUtils;
 import com.auto1.qa.utils.RestUtils;
@@ -215,6 +215,7 @@ public class ApiCommonSteps {
 
         // verify if the HTTP Status received in response was [statusCode]
         TestUtils.checkStatusIs(res, statusCode);
+
     }
 
 }
