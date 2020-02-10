@@ -42,13 +42,19 @@ public class ApiCommonSteps {
         configReader = ConfigReader.getInstance();
     }
 
+    public void beforeNewRequest() {
+        restUtils.resetRestAssured();                           //reset and get new instance
+        restUtils = RestUtils.getInstance();
+    }
+
 
     @Given("^As a user I want to execute '([^\"]+)' endpoint$")
     public void user_wants_to_execute_api_endpoint(String endpoint) {
+        beforeNewRequest();
         restUtils.setBaseURI(configReader.getProperty("BASE_URL"));
         LOGGER.info("Setting BASE_URL as :" + configReader.getProperty("BASE_URL"));
         // Setup API Version & Base Path
-        restUtils.setBasePath(configReader.getProperty("API_VERSION") + configReader.getProperty("API_BASE_PATH"));
+        restUtils.setBasePath(configReader.getProperty("API_VERSION") + "/" + configReader.getProperty("API_BASE_PATH"));
         LOGGER.info("Setting API_VERSION as :" + configReader.getProperty("API_VERSION"));
         LOGGER.info("Setting BASE_PATH as :" + configReader.getProperty("API_BASE_PATH"));
 
@@ -65,10 +71,11 @@ public class ApiCommonSteps {
 
     @Given("^As a user I want to execute '([^\"]+)' endpoint without 'wa_key'$")
     public void user_wants_to_execute_api_endpoint_without_wa_key(String endpoint) {
+        beforeNewRequest();
         restUtils.setBaseURI(configReader.getProperty("BASE_URL"));
         LOGGER.info("Setting BASE_URL as :" + configReader.getProperty("BASE_URL"));
         // Setup API Version & Base Path
-        restUtils.setBasePath(configReader.getProperty("API_VERSION") + configReader.getProperty("API_BASE_PATH"));
+        restUtils.setBasePath(configReader.getProperty("API_VERSION") + "/" + configReader.getProperty("API_BASE_PATH"));
         LOGGER.info("Setting API_VERSION as :" + configReader.getProperty("API_VERSION"));
         LOGGER.info("Setting BASE_PATH as :" + configReader.getProperty("API_BASE_PATH"));
 

@@ -81,7 +81,7 @@ public class Hooks {
 
 			if (System.getProperty("mode").equalsIgnoreCase("api")) {
 				// Reset ApiUtils Values
-				LOGGER.info("Resetting  RestUtils instance..");
+				LOGGER.info("Resetting RestUtils instance..");
 				restUtils.resetRestAssured();
 			}
 		} else if (null != configReader.getRunnerConfigProperty("MODE")) {

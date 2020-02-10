@@ -895,10 +895,10 @@ body.dark, .dark .collapsible-header, .dark #search-tests, .dark .side-nav {
 /* -- Code block[ red ] extra -- */
 
 textarea.code-block {
-    background-color: #f63737 !Important ;
+    background-color: #b96161 !important;
 }
 textarea.code-block.maxxed {
-    background-color: #cb3333;
+    background-color: #b96161 !important;
 }
 
 .response-block{

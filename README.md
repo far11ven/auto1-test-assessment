@@ -1,20 +1,25 @@
 # Project Summary
 
-This framework uses Java-Cucumber-TestNG with RestAssured for testing
+This framework uses Java-Cucumber-TestNG with RestAssured for testing.
 
-- For Reporting Extent Reports are used and for Log4J is used for logging 
+- For Reporting Extent Reports v4 are used and for logging Log4J is used 
 - ```"features/"``` contains all the Test Scenario features written in Gherkin
 - ```"output/<env>/"``` contains all the Test Reports related resources
 - ```"src/main/java > com.auto1.qa.global.utils"``` contains ALL the utility functions used in project
 - ```"src/test/java > com.auto1.qa.runner"``` contains all test runners for running this project
 - ```"src/test/java > com.auto1.qa.context"``` contains required test context classes and ```ContextEnums.java``` contains list of stored values for a Test Run
+- ```"src/test/java > com.auto1.qa.models"``` contains all API response POJOs
 - ```"src/test/java > com.auto1.qa.stepdefs"``` contains all the step definitions
 - ```"src/test/resources > runner.config"``` contains all the TestRunner configurations required when running from IDE
 - ```"src/test/resources > <env>/env.config"``` contains all the environment specific configuration settings related to an env
-- ```"src/test/resources > schemas"``` contains response schemas
+- ```"src/test/resources > schemas"``` contains JSON response schemas
 
 
 ## How To Run :
+
+**Pre-requisites** - Adding environment variables
+- Under ```"src/test/resources > environments/dev/env.config"``` add BASE_URL & wa_key value (if running on dev)
+- Under ```"src/test/resources > environments/qa/env.config"``` add BASE_URL & wa_key value (if running on qa)
 
 **Method#1** - Running Via IDE
  
@@ -43,6 +48,8 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing
  		**-Dcucumber.options="--tags @api"** specify "@api" to run all test features or a particular tag like "@e2e" to run single feature  
  		
 **Test Suite Selection**:
+
+  User can select pre-defined tags like "@api" (For running all test), "@regression" or "@negative" to select type of a test suite
  
    a) Running multiple tags at once (run all tests which has tags, 'tag1' **OR** 'tag2'):
     
@@ -64,4 +71,7 @@ Test Reports can be found at path ```\output\<env>\Test_Report.html``` (Automati
 
 ## Logs: 
 
-Logs are stored under respective date folder under "output/<env>/logs" directory path ```\output\<env>\logs\TestLog_<Timestamp>``` (Automatically created after first run)
+Logs are stored under respective date folder under "output/<env>/logs" directory path ```\output\<env>\logs\TestLog_<Timestamp>``` (Automatically created after first run), or in report under Logs Tab.
+
+![alt text](src/test/resources/images/Screenshot_TestLogs.png)
+

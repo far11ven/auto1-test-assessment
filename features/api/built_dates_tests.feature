@@ -1,4 +1,4 @@
-@api @built-dates @positive1
+@api @built-dates @positive
 Feature: API Tests related to "car-types/built-dates"
 
   @bmw
@@ -13,7 +13,7 @@ Feature: API Tests related to "car-types/built-dates"
     Then Verify response status code is '200'
     #And Verify actual schema of response
 
-  @fr @bmw
+  @fr @bmw @regression
   Scenario: Verify list of built dates for manufacturer code =130 (BMW), make-type = 'X1' & locale=FR
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as

@@ -1,7 +1,7 @@
 @api @manufacturer @negative
 Feature: API Tests related to "car-types/manufacturer"
 
-  @authentication-check
+  @authentication-check @regression
   Scenario: Verify "Method Not Allowed" error is received, when user provides request Type as 'POST'
     Given As a user I want to execute 'manufacturer' endpoint without 'wa_key'
     When I set headers as
@@ -23,7 +23,7 @@ Feature: API Tests related to "car-types/manufacturer"
     And Verify error is received
       | Method Not Allowed |
 
-  @request-type
+  @request-type @regression
   Scenario: Verify "Method Not Allowed" error is received, when user provides request Type as 'PUT'
     Given As a user I want to execute 'manufacturer' endpoint
     When I set headers as
@@ -52,4 +52,6 @@ Feature: API Tests related to "car-types/manufacturer"
       | locale | FR |
     And I as a user submit the 'DELETE' request
     Then Verify response status code is '403'
+
+
 

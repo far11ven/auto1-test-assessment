@@ -16,6 +16,8 @@ import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +62,7 @@ public class ValidationSteps {
 
         ApiResponse schemaObj = res.as(ApiResponse.class);
 
-        LOGGER.code("schemaObj:" + schemaObj.getTotalPageCount());
+        LOGGER.code("Total available Wkda codes:" + schemaObj.getWkda().size());
         TestUtils.validateResponseSchema(res,"ApiResponseSchema.json");
     }
 
@@ -92,19 +94,42 @@ public class ValidationSteps {
     }
 
 
+    @Then("^Verify 'wkda' does-not contain any values$")
+    public void verify_wkda_does_not_have_any_values() {
+
+        res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
+
+        Map<String, Object> wkdaList = null;
+        ObjectMapper oMapper = new ObjectMapper();
+        
+        try {
+            wkdaList =  oMapper.readValue(res.asString(), Map.class);
+            wkdaList =  oMapper.readValue(wkdaList.get("wkda").toString() , Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        LOGGER.code("Total available Wkda codes:" + wkdaList.size());
+
+        assertions.assertTrue(wkdaList.size() == 0, "'wkda' is not empty");
+
+
+    }
+
+
+
     @Then("^Verify error is received$")
     public void verify_error_response(DataTable pathParams) {
         List<List<String>> errorCode = pathParams.asLists();
 
         res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
-
+        
         ErrorResponse errorObj = res.as(ErrorResponse.class);
         assertions.assertIsNotNull(errorObj.getError(), "Error Code is null");
         assertions.assertEquals(errorObj.getError(), errorCode.get(0).get(0), "Error code doesn't match");
         assertions.assertIsNotNull(errorObj.getMessage(), "Error Message is null");
 
     }
-
-
 
 }
