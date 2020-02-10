@@ -41,6 +41,20 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing
  		**-Dmode** can take value "api"  
  		**-Dcucumber.options="features/*"** specifies path to features folder where all ```.feature``` files are stored  
  		**-Dcucumber.options="--tags @api"** specify "@api" to run all test features or a particular tag like "@e2e" to run single feature  
+ 		
+**Test Suite Selection**:
+ 
+   a) Running multiple tags at once (run all tests which has tags, 'tag1' **OR** 'tag2'):
+    
+ 	-Dcucumber.options="--tags @tag1,@tag2"
+ 	
+   b) Running a subset of scenarios (run all tests which has tag, 'tag1' **AND** 'tag2'):
+     
+  	-Dcucumber.options="--tags @tag1 --tags @tag2"
+  	
+   c) Ignoring a subset of scenarios (run all tests except tag 'tag1'  i.e. **NOT** 'tag1'):
+       
+    -Dcucumber.options="--tags ~@tag1"
 
  		
 ## Run Report: 

@@ -41,11 +41,7 @@
     "wkda": {
       "$id": "#/properties/wkda",
       "type": "object",
-      "title": "The Wkda Schema",
-      "required": [],
-      "properties": {
-        "type": "string"
-      }
+      "title": "The Wkda Schema"
     }
   }
 }

@@ -900,3 +900,7 @@ textarea.code-block {
 textarea.code-block.maxxed {
     background-color: #cb3333;
 }
+
+.response-block{
+    background-color: #caefeb !important;
+}

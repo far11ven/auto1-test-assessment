@@ -98,12 +98,12 @@ public class ExtentHelper {
                 logList.add("<span style=\"color:green;\">" + line + "</span><br>");
             } else if (line.contains("FAIL ")) {
                 logList.add("<button class=\"collapsible\">Failure Stacktrace (click to see)</button>\n" +
-                        "<pre class=\"content\">\n" + line + "<br>");
+                        "<pre class=\"content response-block\">\n" + line + "<br>");
             } else if (line.contains("FAIL-END")) {
                 logList.add("</p></pre>");
             } else if (line.contains("CODE ")) {
                 logList.add("<button class=\"collapsible\">Actual Response (click to see)</button>\n" +
-                        "<pre class=\"content\">\n" + line + "<br>");
+                        "<pre class=\"content response-block\">\n" + line + "<br>");
             } else if (line.contains("CODE-END")) {
                 logList.add("</p></pre>");
             } else {

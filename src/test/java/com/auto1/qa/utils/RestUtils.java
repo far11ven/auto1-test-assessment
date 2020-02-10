@@ -121,6 +121,11 @@ public class RestUtils {
     }
 
     // Sets query params
+    public void setRequestQueryParams(String param, String paramValue) {
+        httpRequest.queryParams(param, paramValue);
+    }
+
+    // Sets query params
     public void setRequestPathParams(String param, String paramValue) {
         httpRequest.pathParams(param, paramValue);
     }
@@ -145,15 +150,20 @@ public class RestUtils {
         return httpRequest.post(path);
     }
 
+    // Returns POST response by given path
+    public Response getPUTResponsebyPath(String path) {
+        return httpRequest.put(path);
+    }
+    // Returns DELETE response by given path
+    public Response getPATCHResponsebyPath(String path) {
+        return httpRequest.patch(path);
+    }
+
     // Returns DELETE response by given path
     public Response getDELETEResponsebyPath(String path) {
         return httpRequest.delete(path);
     }
 
-    // Returns POST response by given path
-    public Response getPUTResponsebyPath(String path) {
-        return httpRequest.put(path);
-    }
 
     // Returns response by given path
     public Response getResponsebyPath(String path) {

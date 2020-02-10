@@ -22,7 +22,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 /***
- * This is class contains all the common cucumber steps
+ * This class contains all the common cucumber step definitions
  */
 public class ApiCommonSteps {
 
@@ -45,6 +45,26 @@ public class ApiCommonSteps {
 
     @Given("^As a user I want to execute '([^\"]+)' endpoint$")
     public void user_wants_to_execute_api_endpoint(String endpoint) {
+        restUtils.setBaseURI(configReader.getProperty("BASE_URL"));
+        LOGGER.info("Setting BASE_URL as :" + configReader.getProperty("BASE_URL"));
+        // Setup API Version & Base Path
+        restUtils.setBasePath(configReader.getProperty("API_VERSION") + configReader.getProperty("API_BASE_PATH"));
+        LOGGER.info("Setting API_VERSION as :" + configReader.getProperty("API_VERSION"));
+        LOGGER.info("Setting BASE_PATH as :" + configReader.getProperty("API_BASE_PATH"));
+
+        // Used for ignoring ssl checks
+        restUtils.relaxedHTTPSValidation();
+
+        // save API_ENDPOINT in context
+        testContext.scenarioContext.setContext(ContextEnums.API_ENDPOINT, endpoint);
+        LOGGER.info("Setting API_ENDPOINT as :" + endpoint);
+
+        restUtils.setRequestQueryParams("wa_key", configReader.getProperty("wa_key"));
+
+    }
+
+    @Given("^As a user I want to execute '([^\"]+)' endpoint without 'wa_key'$")
+    public void user_wants_to_execute_api_endpoint_without_wa_key(String endpoint) {
         restUtils.setBaseURI(configReader.getProperty("BASE_URL"));
         LOGGER.info("Setting BASE_URL as :" + configReader.getProperty("BASE_URL"));
         // Setup API Version & Base Path
@@ -155,7 +175,7 @@ public class ApiCommonSteps {
     }
 
 
-    @When("^User submits the 'GET' request$")
+    @When("^I as a user submit the 'GET' request$")
     public void user_submits_the_GET_request() {
         LOGGER.info("GETTING DATA.. FROM :" + testContext.scenarioContext.getContext(ContextEnums.API_ENDPOINT));
 
@@ -168,7 +188,7 @@ public class ApiCommonSteps {
 
     }
 
-    @When("^User submits the 'POST' request$")
+    @When("^I as a user submit the 'POST' request$")
     public void user_submits_the_POST_request() {
         LOGGER.info("POSTING DATA..");
         res = restUtils
@@ -182,27 +202,40 @@ public class ApiCommonSteps {
 
     }
 
-    @When("^User submits the 'DELETE' request$")
+    @When("^I as a user submit the 'DELETE' request$")
     public void user_submits_the_DELETE_request() {
         LOGGER.info("DELETING DATA..");
         res = restUtils
                 .getDELETEResponsebyPath(testContext.scenarioContext.getContext(ContextEnums.API_ENDPOINT).toString());
 
 
-        LOGGER.code("Delete Response : " + res.asString());
+        LOGGER.code("DELETE Response : " + res.asString());
 
         // save response
         testContext.scenarioContext.setResponse(ContextEnums.RESPONSE, res);
 
     }
 
-    @When("^User submits the 'PUT' request$")
+    @When("^I as a user submit the 'PUT' request$")
     public void user_submits_the_PUT_request() {
         LOGGER.info("UPDATING DATA..");
         res = restUtils
                 .getPUTResponsebyPath(testContext.scenarioContext.getContext(ContextEnums.API_ENDPOINT).toString());
 
         LOGGER.code("PUT Response " + res.asString());
+
+        // save response
+        testContext.scenarioContext.setResponse(ContextEnums.RESPONSE, res);
+
+    }
+
+    @When("^I as a user submit the 'PATCH' request$")
+    public void user_submits_the_PATCH_request() {
+        LOGGER.info("UPDATING DATA..");
+        res = restUtils
+                .getPATCHResponsebyPath(testContext.scenarioContext.getContext(ContextEnums.API_ENDPOINT).toString());
+
+        LOGGER.code("PATCH Response " + res.asString());
 
         // save response
         testContext.scenarioContext.setResponse(ContextEnums.RESPONSE, res);

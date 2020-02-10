@@ -10,16 +10,19 @@ import com.auto1.qa.helpers.TestUtils;
 import com.auto1.qa.models.ApiResponse;
 import com.auto1.qa.models.ErrorResponse;
 import com.auto1.qa.utils.RestUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /***
- * This is class contains all the validation for cucumber steps
+ * This is class contains all the validation steps
  */
 public class ValidationSteps {
 
@@ -41,6 +44,16 @@ public class ValidationSteps {
         assertions = Assertions.getInstance();
     }
 
+    @Then("^I store all the available car manufacturer$")
+    public void store_all_available_manufacturers() {
+        res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
+
+        ApiResponse schemaObj = res.as(ApiResponse.class);
+
+        LOGGER.code("schemaObj:" + schemaObj.getWkda());
+        testContext.scenarioContext.setContext(ContextEnums.LIST_OF_ALL_MANUFACTURERS, schemaObj.getWkda());
+    }
+
     @Then("^Verify actual schema of response$")
     public void verify_schema_of_response() {
         res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
@@ -48,8 +61,36 @@ public class ValidationSteps {
         ApiResponse schemaObj = res.as(ApiResponse.class);
 
         LOGGER.code("schemaObj:" + schemaObj.getTotalPageCount());
-        TestUtils.validateResponseSchema(res,"ApiResult.json");
+        TestUtils.validateResponseSchema(res,"ApiResponseSchema.json");
     }
+
+    @Then("^Verify all manufacturer codes are part of list of all available manufacturer codes$")
+    public void verify_received_manufacturer_codes() {
+        res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
+
+        ApiResponse schemaObj = res.as(ApiResponse.class);
+        Map<String,String> franceCarManufacturersList = schemaObj.getWkda();
+
+        //validate response schema
+        TestUtils.validateResponseSchema(res,"ApiResponseSchema.json");
+
+        ObjectMapper oMapper = new ObjectMapper();
+
+        // Convert stored LIST_OF_ALL_MANUFACTURERS object -> Map
+        Map<String, String> allCarManufacturersList =  oMapper.convertValue(testContext.scenarioContext.getResponse(ContextEnums.LIST_OF_ALL_MANUFACTURERS), Map.class);
+
+        assertions.assertTrue(allCarManufacturersList.entrySet().containsAll(franceCarManufacturersList.entrySet()), "GET 'manufacturer' response has unknown car manufacturer codes");
+
+
+        //verify each individual car manufacturer code
+        for (Map.Entry<String, String> entry : franceCarManufacturersList.entrySet()) {
+
+            assertions.assertEquals(entry.getValue(), allCarManufacturersList.get(entry.getKey()), entry.getKey() + " has invalid value");
+
+        }
+
+    }
+
 
     @Then("^Verify error is received$")
     public void verify_error_response(DataTable pathParams) {
@@ -58,10 +99,10 @@ public class ValidationSteps {
         res = (Response) testContext.scenarioContext.getResponse(ContextEnums.RESPONSE);
 
         ErrorResponse errorObj = res.as(ErrorResponse.class);
-        assertions.assertEquals(errorObj.getStatus(), 400, "Error Status code doesn't match");
         assertions.assertIsNotNull(errorObj.getError(), "Error Code is null");
         assertions.assertEquals(errorObj.getError(), errorCode.get(0).get(0), "Error code doesn't match");
         assertions.assertIsNotNull(errorObj.getMessage(), "Error Message is null");
+
     }
 
 

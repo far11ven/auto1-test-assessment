@@ -48,11 +48,12 @@ public class TestUtils {
 			LOGGER.info("Response Schema Validation is PASS");
 
 		} catch (FileNotFoundException e) {
-			LOGGER.fail("Couldn't find [" +  schemaName + "] schema in src/test/resources/schemas folder");
+			LOGGER.error("Couldn't find [" +  schemaName + "] schema in src/test/resources/schemas folder");
 
 		}catch (AssertionError ex) {
 			ex.printStackTrace();
-			LOGGER.fail("Response schema validation failed!!" + Joiner.on("\n").join(Iterables.limit(Arrays.asList(ex.getStackTrace()), 10)));  //stores only 10 lines from error stacktrace in log file
+			LOGGER.error("Response schema validation failed!!");
+			LOGGER.fail("STACKTRACE:" + Joiner.on("\n").join(Iterables.limit(Arrays.asList(ex.getStackTrace()), 10)));  //stores only 10 lines from error stacktrace in log file
 		}
 	}
 
