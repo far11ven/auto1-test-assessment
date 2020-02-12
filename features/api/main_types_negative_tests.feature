@@ -12,7 +12,7 @@ Feature: API Tests related to "car-types/main-types"
     Then Verify response status code is '401'
 
   @missing-params
-  Scenario: Verify list of all Car main-types is received, when user doesn't provide any locale
+  Scenario: Verify 'Bad Request' error is received when required query param 'manufacturer' & 'locale' are missing
     Given As a user I want to execute 'main-types' endpoint
     When I set headers as
       | contentType | application/json |
@@ -22,7 +22,7 @@ Feature: API Tests related to "car-types/main-types"
       | Bad Request |
 
   @missing-params @regression
-  Scenario: Verify list of all Car main-types is received, when user doesn't provide any locale
+  Scenario: Verify 'Bad Request' error is received when required query param 'manufacturer' is missing
     Given As a user I want to execute 'main-types' endpoint
     When I set headers as
       | contentType | application/json |

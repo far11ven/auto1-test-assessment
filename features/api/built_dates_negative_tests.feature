@@ -22,7 +22,7 @@ Feature: API Tests related to "car-types/built-dates"
       | Bad Request |
 
   @missing-params @regression
-  Scenario: Verify list of all Car built-dates is received, when user doesn't provide any locale
+  Scenario: Verify 'Bad Request' error is received when required query param 'manufacturer' & 'main-type' are missing
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as
       | contentType | application/json |
@@ -34,7 +34,7 @@ Feature: API Tests related to "car-types/built-dates"
       | Bad Request |
 
   @missing-params @regression
-  Scenario: Verify list of all Car built-dates is received, when user doesn't provide any main-type
+  Scenario: Verify 'Bad Request' error is received when required query param 'main-type' is missing
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as
       | contentType | application/json |
@@ -47,7 +47,7 @@ Feature: API Tests related to "car-types/built-dates"
       | Bad Request |
 
   @missing-params
-  Scenario: Verify list of all Car built-dates is received, when user doesn't provide any manufacturer code
+  Scenario: Verify 'Bad Request' error is received when required query param 'manufacturer' is missing
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as
       | contentType | application/json |
@@ -102,7 +102,7 @@ Feature: API Tests related to "car-types/built-dates"
     Then Verify response status code is '403'
 
   @invalid-values
-  Scenario: Verify empty 'wkda' is received, when user provides invalid manufacturer code as 'BMW'
+  Scenario: Verify empty 'wkda' field is received, when user provides invalid manufacturer code as 'BMW'
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as
       | contentType | application/json |
@@ -115,7 +115,7 @@ Feature: API Tests related to "car-types/built-dates"
     And Verify 'wkda' does-not contain any values
 
   @invalid-values @regression
-  Scenario: Verify empty 'wkda' is received, when user provides invalid main-type as 'XUV' for valid manufacture code = 130 (BMW)
+  Scenario: Verify empty 'wkda' fields is received, when user provides invalid main-type as 'XUV' for valid manufacture code = 130 (BMW)
     Given As a user I want to execute 'built-dates' endpoint
     When I set headers as
       | contentType | application/json |
