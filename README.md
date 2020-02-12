@@ -47,6 +47,13 @@ This framework uses Java-Cucumber-TestNG with RestAssured for testing.
  		**-Dcucumber.options="features/*"** specifies path to features folder where all ```.feature``` files are stored  
  		**-Dcucumber.options="--tags @api"** specify "@api" to run all test features or a particular tag like "@e2e" to run single feature  
  		
+ **Running in parallel :**  
+    When running tests in parallel, supply following additional mandatory attributes
+ > 
+ 		**-Dtest=CucumberParallelTestRunnerReporter** selects execution via parallel test runner [Required only in parallel execution]  
+ 		**-Dthreadcount= (should be > 1)** number of threads threads to be invoked [Required only in parallel execution]  
+ 			  
+ 		
 **Test Suite Selection**:
 
   User can select pre-defined tags like "@api" (For running all test), "@regression" or "@negative" to select type of a test suite

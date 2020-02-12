@@ -11,6 +11,7 @@ import com.auto1.qa.global.utils.LogUtils;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import org.testng.SkipException;
 
 /**
  * This custom class provides scenario hooks i.e @before ans @after
@@ -65,7 +66,7 @@ public class Hooks {
 	public void beforeIgnoreTest() throws Throwable {
 		LOGGER.warn("Test was marked as ignored" );
 
-		throw new PendingException();
+		throw new SkipException("Test was marked ignored.");
 	}
 
 	/*

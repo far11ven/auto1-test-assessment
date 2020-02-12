@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -112,6 +113,8 @@ public class ExtentHelper {
         }
 
         bis.close();
+
+        //Collections.sort(logList); //sort array list to arrange threads
 
         return logList;
 

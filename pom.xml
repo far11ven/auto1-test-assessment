@@ -13,10 +13,23 @@
         <selenium.version>3.14.0</selenium.version>
         <restassured.version>4.0.0</restassured.version>
         <cucumber.version>4.4.0</cucumber.version>
+        <threadcount>${threadcount}</threadcount>
     </properties>
 
-    <dependencies>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Override only if -Dthreadcount is not supplied -->
+                <threadcount>1</threadcount>
+            </properties>
+        </profile>
+    </profiles>
 
+    <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -179,9 +192,18 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20</version>
                 <configuration>
+                    <forkCount>5</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <includes>
                         <include>**/CucumberTestRunnerReporter.java</include>
                     </includes>
+                    <properties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>${threadcount}</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
             <plugin>
